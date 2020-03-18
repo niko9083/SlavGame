@@ -7,6 +7,8 @@ import pygame
 from Player import PlayerClass
 from Pong.Ball import BallClass
 
+#Ding ding ding. Testing of other PC successful.
+
 pygame.init()
 done = False
 
