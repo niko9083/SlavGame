@@ -5,7 +5,7 @@
 #          #######    #    ##    #######
 import pygame
 from Player import PlayerClass
-from Ball import BallClass
+from Pong.Ball import BallClass
 
 pygame.init()
 done = False
