@@ -11,7 +11,7 @@ pygame.init()
 done = False
 
 WindowWidth = 1000
-WindowHeight = 800
+WindowHeight = 900
 screen = pygame.display.set_mode((WindowWidth, WindowHeight))
 clock = pygame.time.Clock()
 
@@ -21,6 +21,11 @@ Ball = BallClass(300, 400)
 
 PP1 = 0
 PP2 = 0
+count = PP2,"/",PP1
+
+myfont = pygame.font.SysFont('Agency FB', 100)
+scoretext = myfont.render('SCORE', False, (255, 255, 255))
+#counttext = myfont.render((PP2,"/",PP1), False, (255, 255, 255))
 
 while not done:
     for event in pygame.event.get():
@@ -76,6 +81,7 @@ while not done:
     PlayerOne.draw(screen)
     PlayerTwo.draw(screen)
     Ball.draw(screen)
+    screen.blit(scoretext, (400, 10))
 
     pygame.display.flip()
     clock.tick(60)
