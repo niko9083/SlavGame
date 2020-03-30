@@ -21,11 +21,10 @@ Ball = BallClass(300, 400)
 
 PP1 = 0
 PP2 = 0
-count = PP2,"/",PP1
 
-myfont = pygame.font.SysFont('Agency FB', 100)
-scoretext = myfont.render('SCORE', False, (255, 255, 255))
-counttext = myfont.render((PP2,"/",PP1), False, (255, 255, 255))
+MyFont = pygame.font.SysFont('Agency FB', 100)
+ScoreText = MyFont.render('SCORE', False, (255, 255, 255))
+ScoreBar = pygame.draw.rect(screen, (255, 255, 255), (WindowHeight - 100, 0, WindowWidth, 10))
 
 while not done:
     for event in pygame.event.get():
@@ -59,7 +58,7 @@ while not done:
 
     # Ball bounce:
     # - Walls:
-    if Ball.ypos < 1 or Ball.ypos > WindowHeight - Ball.height:
+    if Ball.ypos < 120 or Ball.ypos > WindowHeight - Ball.height:
         Ball.yspeed *= -1
     if Ball.xpos < 1:
         Ball.xspeed *= -1
@@ -73,6 +72,8 @@ while not done:
     if Ball.ypos + Ball.height >= PlayerOne.ypos and Ball.ypos < PlayerOne.ypos + PlayerOne.height and Ball.xpos == PlayerOne.xpos + PlayerOne.width or Ball.ypos + Ball.height >= PlayerTwo.ypos and Ball.ypos < PlayerTwo.ypos + PlayerTwo.height and Ball.xpos + Ball.width == PlayerTwo.xpos:
         Ball.xspeed *= -1
 
+    CountText = MyFont.render((str(PP1) + "/" + str(PP2)), False, (255, 255, 255))
+
     PlayerOne.update()
     PlayerTwo.update()
     Ball.update()
@@ -81,7 +82,9 @@ while not done:
     PlayerOne.draw(screen)
     PlayerTwo.draw(screen)
     Ball.draw(screen)
-    screen.blit(scoretext, (400, 10))
+    pygame.draw.rect(screen, (255, 255, 255), (0, 110, WindowWidth, 10))
+    screen.blit(ScoreText, (320, 0))
+    screen.blit(CountText, (550, 0))
 
     pygame.display.flip()
     clock.tick(60)
