@@ -25,7 +25,7 @@ count = PP2,"/",PP1
 
 myfont = pygame.font.SysFont('Agency FB', 100)
 scoretext = myfont.render('SCORE', False, (255, 255, 255))
-#counttext = myfont.render((PP2,"/",PP1), False, (255, 255, 255))
+counttext = myfont.render((PP2,"/",PP1), False, (255, 255, 255))
 
 while not done:
     for event in pygame.event.get():
@@ -34,31 +34,31 @@ while not done:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             done = True
 
-    #Movement and motion:
-    ##Press
+    # Movement and motion:
+    # - Press
     if event.type == pygame.KEYDOWN:
-        #Player one:
+        # Player one:
         if event.key == pygame.K_w:
             PlayerOne.speed -= PlayerOne.maxspeed
         if event.key == pygame.K_s:
             PlayerOne.speed += PlayerOne.maxspeed
-        #Player two movemnt:
+        # Player two:
         if event.key == pygame.K_UP:
             PlayerTwo.speed -= PlayerTwo.maxspeed
         if event.key == pygame.K_DOWN:
             PlayerTwo.speed += PlayerTwo.maxspeed
 
-    ##Release:
+    # - Release:
     if event.type == pygame.KEYUP:
-        #Player one:
+        # Player one:
         if event.key == pygame.K_w or event.key == pygame.K_s:
             PlayerOne.speed -= PlayerOne.speed
-        #Player two:
+        # Player two:
         if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
             PlayerTwo.speed -= PlayerTwo.speed
 
-    #Ball bounce:
-    ##Walls:
+    # Ball bounce:
+    # - Walls:
     if Ball.ypos < 1 or Ball.ypos > WindowHeight - Ball.height:
         Ball.yspeed *= -1
     if Ball.xpos < 1:
@@ -69,7 +69,7 @@ while not done:
         Ball.xspeed *= -1
         PP1 += 1
         print("Score:",PP1,"/",PP2)
-    ##Players:
+    # - Players:
     if Ball.ypos + Ball.height >= PlayerOne.ypos and Ball.ypos < PlayerOne.ypos + PlayerOne.height and Ball.xpos == PlayerOne.xpos + PlayerOne.width or Ball.ypos + Ball.height >= PlayerTwo.ypos and Ball.ypos < PlayerTwo.ypos + PlayerTwo.height and Ball.xpos + Ball.width == PlayerTwo.xpos:
         Ball.xspeed *= -1
 
