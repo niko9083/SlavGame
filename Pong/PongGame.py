@@ -72,7 +72,7 @@ while not done:
 
     # - Players:
     if Ball.ypos + Ball.height >= PlayerOne.ypos and Ball.ypos < PlayerOne.ypos + PlayerOne.height and Ball.xpos == PlayerOne.xpos + PlayerOne.width or Ball.ypos + Ball.height >= PlayerTwo.ypos and Ball.ypos < PlayerTwo.ypos + PlayerTwo.height and Ball.xpos + Ball.width == PlayerTwo.xpos:
-        #Ball.xspeed *= -1
+        Ball.xspeed *= -1
 
     # - Special player bounces:
     #   - Reverse Ball.yspeed, when player goes the opposite direction as the ball when the ball is slow:
