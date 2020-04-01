@@ -21,6 +21,7 @@ Ball = BallClass(300, 400)
 
 PP1 = 0
 PP2 = 0
+SpeedCounter = 0
 
 MyFont = pygame.font.SysFont('Agency FB', 100)
 ScoreText = MyFont.render('SCORE', False, (255, 255, 255))
@@ -63,24 +64,37 @@ while not done:
     if Ball.xpos < 1:
         Ball.xspeed *= -1
         PP2 += 1
-        print("Score:",PP1,"/",PP2)
+        SpeedCounter += 1
     if Ball.xpos > WindowWidth - Ball.width:
         Ball.xspeed *= -1
         PP1 += 1
-        print("Score:",PP1,"/",PP2)
+        SpeedCounter += 1
+
     # - Players:
     if Ball.ypos + Ball.height >= PlayerOne.ypos and Ball.ypos < PlayerOne.ypos + PlayerOne.height and Ball.xpos == PlayerOne.xpos + PlayerOne.width or Ball.ypos + Ball.height >= PlayerTwo.ypos and Ball.ypos < PlayerTwo.ypos + PlayerTwo.height and Ball.xpos + Ball.width == PlayerTwo.xpos:
-        Ball.xspeed *= -1
+        #Ball.xspeed *= -1
 
-    CountText = MyFont.render((str(PP1) + "/" + str(PP2)), False, (255, 255, 255))
+    # - Special player bounces:
+    #   - Reverse Ball.yspeed, when player goes the opposite direction as the ball when the ball is slow:
+    if Ball.ypos + Ball.height >= PlayerOne.ypos and Ball.ypos < PlayerOne.ypos + PlayerOne.height and Ball.xpos == PlayerOne.xpos + PlayerOne.width and ((Ball.yspeed == 2 and PlayerOne.speed < 0) or (Ball.yspeed == -2 and PlayerOne.speed > 0)):
+        Ball.yspeed *= -1
+    if Ball. ypos + Ball.height >= PlayerTwo.ypos and Ball.ypos < PlayerTwo.ypos + PlayerTwo.height and Ball.xpos + Ball.width == PlayerTwo.xpos and ((Ball.yspeed == 2 and PlayerTwo.speed < 0) or (Ball.yspeed == -2 and PlayerTwo.speed > 0)):
+        Ball.yspeed *= -1
+
+    # Ball.xspeed increases with every 10 points:
+    if SpeedCounter >= 10:
+        Ball.xspeed += 5
+        SpeedCounter -= SpeedCounter
+
+    CountText = MyFont.render((str(PP1)+"/"+str(PP2)), False, (255, 255, 255))
 
     PlayerOne.update()
     PlayerTwo.update()
     Ball.update()
 
     screen.fill((0, 0, 0))
-    PlayerOne.draw(screen)
-    PlayerTwo.draw(screen)
+    PlayerOne.draw(screen)  # Left
+    PlayerTwo.draw(screen)  # Right
     Ball.draw(screen)
     pygame.draw.rect(screen, (255, 255, 255), (0, 110, WindowWidth, 10))
     screen.blit(ScoreText, (320, 0))

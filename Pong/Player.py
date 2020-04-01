@@ -14,8 +14,8 @@ class PlayerClass:
 
     def update(self):
         self.ypos += self.speed
-        if self.ypos < 0:
-            self.ypos = 0
+        if self.ypos < 110:
+            self.ypos = 110
             self.speed = 0
         if self.ypos > self.WindowHeight - self.height:
             self.ypos = self.WindowHeight - self.height
