@@ -71,14 +71,14 @@ while not done:
         SpeedCounter += 1
 
     # - Players:
-    if Ball.ypos + Ball.height >= PlayerOne.ypos and Ball.ypos < PlayerOne.ypos + PlayerOne.height and Ball.xpos == PlayerOne.xpos + PlayerOne.width or Ball.ypos + Ball.height >= PlayerTwo.ypos and Ball.ypos < PlayerTwo.ypos + PlayerTwo.height and Ball.xpos + Ball.width == PlayerTwo.xpos:
+    if (Ball.ypos + Ball.height >= PlayerOne.ypos and Ball.ypos < PlayerOne.ypos + PlayerOne.height and Ball.xpos >= PlayerOne.xpos and Ball.xpos <= PlayerOne.xpos + PlayerOne.width) or (Ball.ypos + Ball.height >= PlayerTwo.ypos and Ball.ypos < PlayerTwo.ypos + PlayerTwo.height and Ball.xpos + Ball.width >= PlayerTwo.xpos and Ball.xpos <= PlayerTwo.xpos + PlayerTwo.width):
         Ball.xspeed *= -1
 
     # - Special player bounces:
     #   - Reverse Ball.yspeed, when player goes the opposite direction as the ball when the ball is slow:
-    if Ball.ypos + Ball.height >= PlayerOne.ypos and Ball.ypos < PlayerOne.ypos + PlayerOne.height and Ball.xpos == PlayerOne.xpos + PlayerOne.width and ((Ball.yspeed == 2 and PlayerOne.speed < 0) or (Ball.yspeed == -2 and PlayerOne.speed > 0)):
+    if Ball.ypos + Ball.height >= PlayerOne.ypos and Ball.ypos < PlayerOne.ypos + PlayerOne.height and Ball.xpos >= PlayerOne.xpos and Ball.xpos <= PlayerOne.xpos + PlayerOne.width and ((Ball.yspeed == 2 and PlayerOne.speed < 0) or (Ball.yspeed == -2 and PlayerOne.speed > 0)):
         Ball.yspeed *= -1
-    if Ball. ypos + Ball.height >= PlayerTwo.ypos and Ball.ypos < PlayerTwo.ypos + PlayerTwo.height and Ball.xpos + Ball.width == PlayerTwo.xpos and ((Ball.yspeed == 2 and PlayerTwo.speed < 0) or (Ball.yspeed == -2 and PlayerTwo.speed > 0)):
+    if Ball. ypos + Ball.height >= PlayerTwo.ypos and Ball.ypos < PlayerTwo.ypos + PlayerTwo.height and Ball.xpos + Ball.width >= PlayerTwo.xpos and Ball.xpos <= PlayerTwo.xpos + PlayerTwo.width and ((Ball.yspeed == 2 and PlayerTwo.speed < 0) or (Ball.yspeed == -2 and PlayerTwo.speed > 0)):
         Ball.yspeed *= -1
 
     # Ball.xspeed increases with every 10 points:
