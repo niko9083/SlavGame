@@ -17,6 +17,7 @@ RegularFont = pygame.font.SysFont('Century Gothic', 20)
 GameFont = pygame.font.SysFont('Candara Bold', 50)
 
 HelpText = RegularFont.render("Pick a game:", False, (255, 255, 255))
+ByText = RegularFont.render("Made By TuristGuden", False, (255, 255, 255))
 
 while not done:
     for event in pygame.event.get():
@@ -59,6 +60,7 @@ while not done:
     screen.blit(HelpText, (10, 130))
     screen.blit(PongText, (50, 200))
     screen.blit(TicTacToeText, (50, 250))
+    screen.blit(ByText, (0, HubHeight - 25))
 
     pygame.display.flip()
     clock.tick(60)
