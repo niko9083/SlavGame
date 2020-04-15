@@ -1,5 +1,4 @@
 import pygame
-import random
 
 class BallClass:
     xspeed = 5
