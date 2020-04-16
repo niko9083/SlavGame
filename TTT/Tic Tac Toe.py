@@ -156,31 +156,34 @@ def gameWon(board):
     global grid, winner
 
     # check for winning rows
+    # fixed
     for row in range(0, 3):
         if ((grid[row][0] == grid[row][1] == grid[row][2]) and \
                 (grid[row][0] is not None)):
             # this row won
             winner = grid[row][0]
-            pygame.draw.line(board, (255, 0, 0), (0, (row + 1) * 100 - 50), \
-                             (645, (row + 1) * 100 - 50), 5)
+            pygame.draw.line(board, (255, 255, 255), (107, (row + 1) * 225 - 100), \
+                             (540, (row + 1) * 225 - 100), 5)
             break
 
     # check for winning columns
+    # fixed
     for col in range(0, 3):
         if (grid[0][col] == grid[1][col] == grid[2][col]) and \
                 (grid[0][col] is not None):
             # this column won
             winner = grid[0][col]
-            pygame.draw.line(board, (0, 0, 0), ((col + 1) * 100 - 50, 0), \
-                             ((col + 1) * 100 - 50, 675), 5)
+            pygame.draw.line(board, (255, 255, 0), ((col + 1) * 215 - 107, 125), \
+                             ((col + 1) * 215 - 107, 575), 5)
             break
 
     # check for diagonal winners
+    # fixing
     if (grid[0][0] == grid[1][1] == grid[2][2]) and \
             (grid[0][0] is not None):
         # game won diagonally left to right
         winner = grid[0][0]
-        pygame.draw.line(board, (0, 0, 0), (50, 100), (600, 600), 5)
+        pygame.draw.line(board, (0, 0, 255), (75, 100), (600, 600), 5)
 
     if (grid[0][2] == grid[1][1] == grid[2][0]) and \
             (grid[0][2] is not None):
