@@ -6,15 +6,15 @@ from pygame.locals import *
 XO = "X"  # track whose turn it is; X goes first
 grid = [[None, None, None], \
         [None, None, None], \
-        [None, None, None]]
+         [None, None, None]]
 
 winner = None
 
 
 def initBoard(ttt):
-    # initialize the board and return it as a variable
-    # ---------------------------------------------------------------
-    # ttt : a properly initialized pyGame display variable
+     # initialize the board and return it as a variable
+     # ---------------------------------------------------------------
+     # ttt : a properly initialized pyGame display variable
 
     # set up the background surface
     background = pygame.Surface(ttt.get_size())
@@ -95,7 +95,6 @@ def boardPos(mouseX, mouseY):
 
     # return the tuple containg the row & column
     return (row, col)
-
 
 def drawMove(board, boardRow, boardCol, Piece):
     # draw an X or O (Piece) on the board in boardRow, boardCol
@@ -191,29 +190,29 @@ def gameWon(board):
         winner = grid[0][2]
         pygame.draw.line(board, (0, 0, 0), (250, 50), (50, 250), 5)
 
+def run():
+    # --------------------------------------------------------------------
+    # initialize pygame and our window
+    pygame.init()
+    ttt = pygame.display.set_mode((645, 675))
+    pygame.display.set_caption('Tic-Tac-Toe')
 
-# --------------------------------------------------------------------
-# initialize pygame and our window
-pygame.init()
-ttt = pygame.display.set_mode((645, 675))
-pygame.display.set_caption('Tic-Tac-Toe')
+    # create the game board
+    board = initBoard(ttt)
 
-# create the game board
-board = initBoard(ttt)
+    # main event loop
+    running = 1
 
-# main event loop
-running = 1
+    while (running == 1):
+        for event in pygame.event.get():
+           if event.type is QUIT:
+                running = 0
+           elif event.type is MOUSEBUTTONDOWN:
+                # the user clicked; place an X or O
+                clickBoard(board)
 
-while (running == 1):
-    for event in pygame.event.get():
-        if event.type is QUIT:
-            running = 0
-        elif event.type is MOUSEBUTTONDOWN:
-            # the user clicked; place an X or O
-            clickBoard(board)
+           # check for a winner
+           gameWon(board)
 
-        # check for a winner
-        gameWon(board)
-
-        # update the display
-        showBoard(ttt, board)
+           # update the display
+           showBoard(ttt, board)

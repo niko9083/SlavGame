@@ -98,10 +98,3 @@ def run():
 
         pygame.display.flip()
         clock.tick(60)
-
-    while done:
-        from GameHub import GameHub
-        WindowWidth == GameHub.HubWidth
-        WindowHeight == GameHub.HubHeight
-
-run()

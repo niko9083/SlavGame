@@ -1,11 +1,13 @@
 import pygame
+from Pong import PongGame
+from TTT import TicTacToe
 
 pygame.init()
 done = False
 
 HubWidth = 500
 HubHeight = 500
-screen = pygame.display.set_mode((HubWidth, HubHeight))
+#screen = pygame.display.set_mode((HubWidth, HubHeight))
 clock = pygame.time.Clock()
 
 Red = 255
@@ -17,7 +19,7 @@ RegularFont = pygame.font.SysFont('Century Gothic', 20)
 GameFont = pygame.font.SysFont('Candara Bold', 50)
 
 HelpText = RegularFont.render("Pick a game:", False, (255, 255, 255))
-ByText = RegularFont.render("Made By TuristGuden", False, (255, 255, 255))
+ByText = RegularFont.render("Made By Papa D. & TuristGuden", False, (255, 255, 255))
 
 while not done:
     for event in pygame.event.get():
@@ -25,6 +27,8 @@ while not done:
             done = True
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             done = True
+
+    screen = pygame.display.set_mode((HubWidth, HubHeight))
 
     if Red > 0 and Green == 255 and Blue < 255:
         Red -= 5
@@ -43,17 +47,16 @@ while not done:
     if 200 <= MouseY <= 235:
         PongText = GameFont.render("PONG", False, (Red, Green, Blue))
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            from Pong import PongGame
             PongGame.run()
     else:
         PongText = GameFont.render("PONG", False, (255, 255, 255))
 
     if 250 <= MouseY <= 285:
-        TicTacToeText = GameFont.render("Work In Progress", False, (255, 100, 100))
+        TicTacToeText = GameFont.render("Tic Tac Toe", False, (Red, Green, Blue))
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            TicTacToeText = GameFont.render("Unavailable", False, (255, 100, 100))
+            TicTacToe.run()
     else:
-        TicTacToeText = GameFont.render("Tic Tac Toe (WIP)", False, (255, 255, 255))
+        TicTacToeText = GameFont.render("Tic Tac Toe", False, (255, 255, 255))
 
     screen.fill((0, 0, 0))
     screen.blit(TitleText, (0, 0))
