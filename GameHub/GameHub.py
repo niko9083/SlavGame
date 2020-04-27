@@ -7,7 +7,6 @@ done = False
 
 HubWidth = 500
 HubHeight = 500
-#screen = pygame.display.set_mode((HubWidth, HubHeight))
 clock = pygame.time.Clock()
 
 Red = 255

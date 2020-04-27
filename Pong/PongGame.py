@@ -21,7 +21,6 @@ def run():
 
     MyFont = pygame.font.SysFont('Bahnschrift', 100)
     ScoreText = MyFont.render('SCORE', False, (255, 255, 255))
-    ScoreBar = pygame.draw.rect(screen, (255, 255, 255), (WindowHeight - 100, 0, WindowWidth, 10))
 
     while not done:
         for event in pygame.event.get():
