@@ -13,7 +13,7 @@ def run():
 
     PlayerOne = PlayerClass(100, 400, WindowHeight)
     PlayerTwo = PlayerClass(WindowWidth - 100 - PlayerClass.width, 400, WindowHeight)
-    Ball = BallClass(300, 400)
+    Ball = BallClass(500, 500)
 
     PP1 = 0
     PP2 = 0
@@ -58,16 +58,21 @@ def run():
             Ball.yspeed *= -1
         if Ball.xpos < 1:
             Ball.xspeed *= -1
+            Ball.xpos = 500
+            Ball.ypos = PlayerTwo.ypos + PlayerTwo.height / 2
             PP2 += 1
             SpeedCounter += 1
         if Ball.xpos > WindowWidth - Ball.width:
             Ball.xspeed *= -1
+            Ball.xpos = 500
+            Ball.ypos = PlayerOne.ypos + PlayerOne.height / 2
             PP1 += 1
             SpeedCounter += 1
 
         # - Players:
         if Ball.ypos + Ball.height >= PlayerOne.ypos and Ball.ypos < PlayerOne.ypos + PlayerOne.height and PlayerOne.xpos + PlayerOne.width >= Ball.xpos >= PlayerOne.xpos:
             Ball.xspeed *= -1
+            HitPlayerSound.play()
             if (Ball.yspeed == 2 and PlayerOne.speed < 0) or (Ball.yspeed == -2 and PlayerOne.speed > 0):
                 Ball.yspeed *= -1
 
