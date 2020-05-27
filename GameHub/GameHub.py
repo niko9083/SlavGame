@@ -1,6 +1,7 @@
 import pygame
 from Pong import PongGame
 from TTT import TicTacToe
+from SimonSays import enFil
 
 pygame.init()
 done = False
@@ -18,7 +19,9 @@ RegularFont = pygame.font.SysFont('Century Gothic', 20)
 GameFont = pygame.font.SysFont('Candara Bold', 50)
 
 HelpText = RegularFont.render("Pick a game:", False, (255, 255, 255))
-ByText = RegularFont.render("Made By Papa D. & TuristGuden", False, (255, 255, 255))
+ByText = RegularFont.render("Made By Papa D, TuristGuden, and Kroelse.", False, (255, 255, 255))
+
+SimonSays = enFil
 
 while not done:
     for event in pygame.event.get():
@@ -57,11 +60,19 @@ while not done:
     else:
         TicTacToeText = GameFont.render("Tic Tac Toe", False, (255, 255, 255))
 
+    if 300 <= MouseY <= 335:
+        SimonSaysText = GameFont.render("Simon Says", False, (Red, Green, Blue))
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            SimonSays.run()
+    else:
+        SimonSaysText = GameFont.render("Simon Says", False, (255, 255, 255))
+
     screen.fill((0, 0, 0))
     screen.blit(TitleText, (0, 0))
     screen.blit(HelpText, (10, 130))
     screen.blit(PongText, (50, 200))
     screen.blit(TicTacToeText, (50, 250))
+    screen.blit(SimonSaysText, (50, 300))
     screen.blit(ByText, (0, HubHeight - 25))
 
     pygame.display.flip()

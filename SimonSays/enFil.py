@@ -1,4 +1,4 @@
-import pygame, random, sys, time
+import pygame, random, sys, time, os
 from pygame.locals import *
 
 def run():
@@ -60,7 +60,9 @@ def run():
     pygame.display.update()
     HighScore=0
 
-    pygame.mixer.music.load('music/wii.mp3')
+    dirname = os.path.dirname(__file__)
+    wiiPath = os.path.join(dirname, 'wii.mp3')
+    pygame.mixer.music.load(wiiPath)
     pygame.mixer.music.play(-1)
     score = 0
     while not GAMEOVER:
