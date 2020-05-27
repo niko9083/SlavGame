@@ -1,6 +1,7 @@
 import pygame
 from Pong.Player import PlayerClass
 from Pong.Ball import BallClass
+import os
 
 def run():
     pygame.init()
@@ -52,17 +53,27 @@ def run():
             if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                 PlayerTwo.speed -= PlayerTwo.speed
 
+        # Get sounds
+        dirname = os.path.dirname(__file__)
+        hitWallPath = os.path.join(dirname, 'HitWall.wav')
+        hitWallSound = pygame.mixer.Sound(hitWallPath)
+
+        hitPlayerPath = os.path.join(dirname, 'HitPlayer.wav')
+        hitPlayerSound = pygame.mixer.Sound(hitPlayerPath)
+
         # Ball bounce:
         # - Walls:
         if Ball.ypos < 120 or Ball.ypos > WindowHeight - Ball.height:
             Ball.yspeed *= -1
         if Ball.xpos < 1:
+            hitWallSound.play()
             Ball.xspeed *= -1
             Ball.xpos = 500
             Ball.ypos = PlayerTwo.ypos + PlayerTwo.height / 2
             PP2 += 1
             SpeedCounter += 1
         if Ball.xpos > WindowWidth - Ball.width:
+            hitWallSound.play()
             Ball.xspeed *= -1
             Ball.xpos = 500
             Ball.ypos = PlayerOne.ypos + PlayerOne.height / 2
@@ -72,12 +83,13 @@ def run():
         # - Players:
         if Ball.ypos + Ball.height >= PlayerOne.ypos and Ball.ypos < PlayerOne.ypos + PlayerOne.height and PlayerOne.xpos + PlayerOne.width >= Ball.xpos >= PlayerOne.xpos:
             Ball.xspeed *= -1
-            HitPlayerSound.play()
+            hitPlayerSound.play()
             if (Ball.yspeed == 2 and PlayerOne.speed < 0) or (Ball.yspeed == -2 and PlayerOne.speed > 0):
                 Ball.yspeed *= -1
 
         if Ball. ypos + Ball.height >= PlayerTwo.ypos and Ball.ypos < PlayerTwo.ypos + PlayerTwo.height and Ball.xpos + Ball.width >= PlayerTwo.xpos and Ball.xpos <= PlayerTwo.xpos + PlayerTwo.width:
             Ball.xspeed *= -1
+            hitPlayerSound.play()
             if (Ball.yspeed == 2 and PlayerTwo.speed < 0) or (Ball.yspeed == -2 and PlayerTwo.speed > 0):
                 Ball.yspeed *= -1
 
