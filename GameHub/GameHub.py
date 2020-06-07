@@ -1,4 +1,4 @@
-import pygame
+import pygame, os
 from Pong import PongGame
 from TTT import TicTacToe
 from SimonSays import enFil
@@ -19,7 +19,7 @@ RegularFont = pygame.font.SysFont('Century Gothic', 20)
 GameFont = pygame.font.SysFont('Candara Bold', 50)
 
 HelpText = RegularFont.render("Pick a game:", False, (255, 255, 255))
-ByText = RegularFont.render("Made By Krølse Papa D, TuristGuden.", False, (255, 255, 255))
+ByText = RegularFont.render("Made By Krølse, Papa D, TuristGuden.", False, (255, 255, 255))
 
 SimonSays = enFil
 

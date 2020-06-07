@@ -109,10 +109,11 @@ def run():
                     with open('HighScore.txt') as file:
                         data = file.read()
                         highscore = str(data.strip())
+                        file.close()
                 except:
                     print("highScoreFile not found, resetting to 0.")
+                    highscore = str(0)
                 highscore1 = highscore
-                file.close()
                 font = pygame.font.SysFont('Raleway Bold', 35)
 
                 textScore = font.render("din score er: " + str(score), False, (0, 0, 0))
