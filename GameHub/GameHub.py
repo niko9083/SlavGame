@@ -46,7 +46,7 @@ while not done:
 
     TitleText = TitleFont.render("Game Hub", False, (Red, Green, Blue))
 
-    if 175 <= MouseY <= 210 and:
+    if 175 <= MouseY <= 210:
         PongText = GameFont.render("PONG", False, (Red, Green, Blue))
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             PongGame.run()
