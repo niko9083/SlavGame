@@ -64,6 +64,8 @@ def run():
     wiiPath = os.path.join(dirname, 'wii.mp3')
     pygame.mixer.music.load(wiiPath)
     pygame.mixer.music.play(-1)
+
+    HighScorePath = os.path.join(dirname, 'HighScore.txt')
     score = 0
     while not GAMEOVER:
 
@@ -90,7 +92,7 @@ def run():
         print("Count = ", count)
 
         #the click detection loop
-        clicks = 0
+        clicks = -1
         clickPositions = []
         while clicks < count:
 
@@ -105,10 +107,30 @@ def run():
         for index,shape in enumerate(rectSequence):
              if not shape.collidepoint(clickPositions[index]):
                 print("BAD CLICK")
+                try:
+                    with open(HighScorePath) as file:
+                        data = file.read()
+                        highscore = str(data.strip())
+                        file.close()
+                except:
+                    print("highScoreFile not found, resetting to 0.")
+                    highscore = str(0)
+                highscore1 = highscore
+                font = pygame.font.SysFont('Raleway Bold', 35)
+
+                textScore = font.render("din score er: " + str(score), False, (0, 0, 0))
+                textHighScore = font.render("nuværene highscore er " + highscore1, False, (0, 0, 0))
+                screen.fill((255, 255, 255))
+                screen.blit(textScore, (160 - textScore.get_width() // 2, 100 - textScore.get_height() // 2))
+                screen.blit(textHighScore,
+                            (170 - textHighScore.get_width() // 2, 200 - textHighScore.get_height() // 2))
+                pygame.display.flip()
+                time.sleep(10)
+                pygame.mixer.music.fadeout(2)
                 GAMEOVER = True
                 print("score:", score)
                 try:
-                    with open('HighScore.txt') as file:
+                    with open(HighScorePath) as file:
                         data = file.read()
                         HighScore = int(data.strip())
                         print("Loaded highscore:", HighScore)
@@ -117,7 +139,7 @@ def run():
                 if score > HighScore:
                      try:
 
-                        with open('HighScore.txt','w') as file:
+                        with open(HighScorePath,'w') as file:
                             file.write(str(score))
                             file.close()
                      except:
@@ -125,13 +147,3 @@ def run():
                      print("new highscore",score,"!")
              else:
                 print("GOOD CLICK")
-    font = pygame.font.SysFont("comicsansms", 40)
-
-    text = font.render("your score is: " + str(score), False, (0, 128, 0))
-
-    while GAMEOVER:
-        screen.fill((255, 255, 255))
-        screen.blit(text,
-                    (120 - text.get_width() // 2, 100 - text.get_height() // 2))
-
-        pygame.display.flip()

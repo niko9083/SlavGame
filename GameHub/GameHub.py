@@ -1,4 +1,4 @@
-import pygame
+import pygame, os
 from Pong import PongGame
 from TTT import TicTacToe
 from SimonSays import enFil
@@ -19,7 +19,7 @@ RegularFont = pygame.font.SysFont('Century Gothic', 20)
 GameFont = pygame.font.SysFont('Candara Bold', 50)
 
 HelpText = RegularFont.render("Pick a game:", False, (255, 255, 255))
-ByText = RegularFont.render("Made By Papa D, TuristGuden, and Kroelse.", False, (255, 255, 255))
+ByText = RegularFont.render("Made By Krølse, Papa D, TuristGuden.", False, (255, 255, 255))
 
 SimonSays = enFil
 
@@ -46,33 +46,33 @@ while not done:
 
     TitleText = TitleFont.render("Game Hub", False, (Red, Green, Blue))
 
-    if 200 <= MouseY <= 235:
+    if 175 <= MouseY <= 210:
         PongText = GameFont.render("PONG", False, (Red, Green, Blue))
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             PongGame.run()
     else:
         PongText = GameFont.render("PONG", False, (255, 255, 255))
 
-    if 250 <= MouseY <= 285:
-        TicTacToeText = GameFont.render("Tic Tac Toe", False, (Red, Green, Blue))
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            TicTacToe.run()
-    else:
-        TicTacToeText = GameFont.render("Tic Tac Toe", False, (255, 255, 255))
-
-    if 300 <= MouseY <= 335:
+    if 225 <= MouseY <= 260:
         SimonSaysText = GameFont.render("Simon Says", False, (Red, Green, Blue))
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             SimonSays.run()
     else:
         SimonSaysText = GameFont.render("Simon Says", False, (255, 255, 255))
 
+    if 275 <= MouseY <= 310:
+        TicTacToeText = GameFont.render("Tic Tac Toe", False, (Red, Green, Blue))
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            TicTacToe.run()
+    else:
+        TicTacToeText = GameFont.render("Tic Tac Toe", False, (255, 255, 255))
+
     screen.fill((0, 0, 0))
     screen.blit(TitleText, (0, 0))
     screen.blit(HelpText, (10, 130))
-    screen.blit(PongText, (50, 200))
-    screen.blit(TicTacToeText, (50, 250))
-    screen.blit(SimonSaysText, (50, 300))
+    screen.blit(PongText, (50, 175))
+    screen.blit(SimonSaysText, (50, 225))
+    screen.blit(TicTacToeText, (50, 275))
     screen.blit(ByText, (0, HubHeight - 25))
 
     pygame.display.flip()

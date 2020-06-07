@@ -1,7 +1,7 @@
-import pygame
+import pygame, os
 from Pong.Player import PlayerClass
 from Pong.Ball import BallClass
-import os
+from time import sleep
 
 def run():
     pygame.init()
@@ -91,7 +91,7 @@ def run():
             Ball.xspeed *= -1
             hitPlayerSound.play()
             if (Ball.yspeed == 2 and PlayerTwo.speed < 0) or (Ball.yspeed == -2 and PlayerTwo.speed > 0):
-                Ball.yspeed *= -1
+                    Ball.yspeed *= -1
 
         # Ball.xspeed increases with every 10 total points:
         if SpeedCounter >= 10:
@@ -105,8 +105,8 @@ def run():
         Ball.update()
 
         screen.fill((0, 0, 0))
-        PlayerOne.draw(screen)  # Left
-        PlayerTwo.draw(screen)  # Right
+        PlayerOne.draw(screen)  # Left player
+        PlayerTwo.draw(screen)  # Right player
         Ball.draw(screen)
         pygame.draw.rect(screen, (255, 255, 255), (0, 110, WindowWidth, 10))
         screen.blit(ScoreText, (250, 0))
