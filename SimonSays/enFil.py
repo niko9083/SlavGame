@@ -64,6 +64,8 @@ def run():
     wiiPath = os.path.join(dirname, 'wii.mp3')
     pygame.mixer.music.load(wiiPath)
     pygame.mixer.music.play(-1)
+
+    HighScorePath = os.path.join(dirname, 'HighScore.txt')
     score = 0
     while not GAMEOVER:
 
@@ -106,7 +108,7 @@ def run():
              if not shape.collidepoint(clickPositions[index]):
                 print("BAD CLICK")
                 try:
-                    with open('HighScore.txt') as file:
+                    with open(HighScorePath) as file:
                         data = file.read()
                         highscore = str(data.strip())
                         file.close()
@@ -128,7 +130,7 @@ def run():
                 GAMEOVER = True
                 print("score:", score)
                 try:
-                    with open('HighScore.txt') as file:
+                    with open(HighScorePath) as file:
                         data = file.read()
                         HighScore = int(data.strip())
                         print("Loaded highscore:", HighScore)
@@ -137,7 +139,7 @@ def run():
                 if score > HighScore:
                      try:
 
-                        with open('HighScore.txt','w') as file:
+                        with open(HighScorePath,'w') as file:
                             file.write(str(score))
                             file.close()
                      except:
