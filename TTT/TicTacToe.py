@@ -184,7 +184,7 @@ def gameWon(board):
         winner = grid[0][0]
         pygame.draw.line(board, (155, 0, 255), (110, 125), (537, 575), 7)
 
-    # fixing
+    # fixed
     if (grid[0][2] == grid[1][1] == grid[2][0]) and \
             (grid[0][2] is not None):
         # game won diagonally right to left
