@@ -6,7 +6,6 @@ from time import sleep
 def run():
     pygame.init()
     done = False
-    paused = False
 
     WindowWidth = 1000
     WindowHeight = 900
@@ -31,91 +30,87 @@ def run():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 done = True
 
-        while not paused:
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
-                    paused = True
+        # Movement and motion:
+        # - Press
+        if event.type == pygame.KEYDOWN:
+            # Player one:
+            if event.key == pygame.K_w:
+                PlayerOne.speed -= PlayerOne.maxspeed
+            if event.key == pygame.K_s:
+                PlayerOne.speed += PlayerOne.maxspeed
+            # Player two:
+            if event.key == pygame.K_UP:
+                PlayerTwo.speed -= PlayerTwo.maxspeed
+            if event.key == pygame.K_DOWN:
+                PlayerTwo.speed += PlayerTwo.maxspeed
 
-            # Movement and motion:
-            # - Press
-            if event.type == pygame.KEYDOWN:
-                # Player one:
-                if event.key == pygame.K_w:
-                    PlayerOne.speed -= PlayerOne.maxspeed
-                if event.key == pygame.K_s:
-                    PlayerOne.speed += PlayerOne.maxspeed
-                # Player two:
-                if event.key == pygame.K_UP:
-                    PlayerTwo.speed -= PlayerTwo.maxspeed
-                if event.key == pygame.K_DOWN:
-                    PlayerTwo.speed += PlayerTwo.maxspeed
+        # - Release:
+        if event.type == pygame.KEYUP:
+            # Player one:
+            if event.key == pygame.K_w or event.key == pygame.K_s:
+                PlayerOne.speed -= PlayerOne.speed
+            # Player two:
+            if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                PlayerTwo.speed -= PlayerTwo.speed
 
-            # - Release:
-            if event.type == pygame.KEYUP:
-                # Player one:
-                if event.key == pygame.K_w or event.key == pygame.K_s:
-                    PlayerOne.speed -= PlayerOne.speed
-                # Player two:
-                if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
-                    PlayerTwo.speed -= PlayerTwo.speed
+        # Get sounds
+        dirname = os.path.dirname(__file__)
+        hitWallPath = os.path.join(dirname, 'HitWall.wav')
+        hitWallSound = pygame.mixer.Sound(hitWallPath)
 
-            # Get sounds
-            dirname = os.path.dirname(__file__)
-            hitWallPath = os.path.join(dirname, 'HitWall.wav')
-            hitWallSound = pygame.mixer.Sound(hitWallPath)
+        hitPlayerPath = os.path.join(dirname, 'HitPlayer.wav')
+        hitPlayerSound = pygame.mixer.Sound(hitPlayerPath)
 
-            hitPlayerPath = os.path.join(dirname, 'HitPlayer.wav')
-            hitPlayerSound = pygame.mixer.Sound(hitPlayerPath)
+        # Ball bounce:
+        # - Walls:
+        if Ball.ypos < 120 or Ball.ypos > WindowHeight - Ball.height:
+            Ball.yspeed *= -1
+        if Ball.xpos < 1:
+            hitWallSound.play()
+            Ball.xspeed *= -1
+            Ball.xpos = 500
+            Ball.ypos = PlayerTwo.ypos + PlayerTwo.height / 2
+            PP2 += 1
+            SpeedCounter += 1
+        if Ball.xpos > WindowWidth - Ball.width:
+            hitWallSound.play()
+            Ball.xspeed *= -1
+            Ball.xpos = 500
+            Ball.ypos = PlayerOne.ypos + PlayerOne.height / 2
+            PP1 += 1
+            SpeedCounter += 1
 
-            # Ball bounce:
-            # - Walls:
-            if Ball.ypos < 120 or Ball.ypos > WindowHeight - Ball.height:
+        # - Players:
+        if Ball.ypos + Ball.height >= PlayerOne.ypos and Ball.ypos < PlayerOne.ypos + PlayerOne.height and PlayerOne.xpos + PlayerOne.width >= Ball.xpos >= PlayerOne.xpos:
+            Ball.xspeed *= -1
+            hitPlayerSound.play()
+            if (Ball.yspeed == 2 and PlayerOne.speed < 0) or (Ball.yspeed == -2 and PlayerOne.speed > 0):
                 Ball.yspeed *= -1
-            if Ball.xpos < 1:
-                hitWallSound.play()
-                Ball.xspeed *= -1
-                Ball.xpos = 500
-                Ball.ypos = PlayerTwo.ypos + PlayerTwo.height / 2
-                PP2 += 1
-                SpeedCounter += 1
-            if Ball.xpos > WindowWidth - Ball.width:
-                hitWallSound.play()
-                Ball.xspeed *= -1
-                Ball.xpos = 500
-                Ball.ypos = PlayerOne.ypos + PlayerOne.height / 2
-                PP1 += 1
-                SpeedCounter += 1
 
-            # - Players:
-            if Ball.ypos + Ball.height >= PlayerOne.ypos and Ball.ypos < PlayerOne.ypos + PlayerOne.height and PlayerOne.xpos + PlayerOne.width >= Ball.xpos >= PlayerOne.xpos:
-                Ball.xspeed *= -1
-                hitPlayerSound.play()
-                if (Ball.yspeed == 2 and PlayerOne.speed < 0) or (Ball.yspeed == -2 and PlayerOne.speed > 0):
+        if Ball. ypos + Ball.height >= PlayerTwo.ypos and Ball.ypos < PlayerTwo.ypos + PlayerTwo.height and Ball.xpos + Ball.width >= PlayerTwo.xpos and Ball.xpos <= PlayerTwo.xpos + PlayerTwo.width:
+            Ball.xspeed *= -1
+            hitPlayerSound.play()
+            if (Ball.yspeed == 2 and PlayerTwo.speed < 0) or (Ball.yspeed == -2 and PlayerTwo.speed > 0):
                     Ball.yspeed *= -1
 
-            if Ball. ypos + Ball.height >= PlayerTwo.ypos and Ball.ypos < PlayerTwo.ypos + PlayerTwo.height and Ball.xpos + Ball.width >= PlayerTwo.xpos and Ball.xpos <= PlayerTwo.xpos + PlayerTwo.width:
-                Ball.xspeed *= -1
-                hitPlayerSound.play()
-            if (Ball.yspeed == 2 and PlayerTwo.speed < 0) or (Ball.yspeed == -2 and PlayerTwo.speed > 0):
-                Ball.yspeed *= -1
+        # Ball.xspeed increases with every 10 total points:
+        if SpeedCounter >= 10:
+            Ball.xspeed += 2
+            SpeedCounter -= SpeedCounter
 
-            # Ball.xspeed increases with every 10 total points:
-            if SpeedCounter >= 10:
-                Ball.xspeed += 2
-                SpeedCounter -= SpeedCounter
+        CountText = MyFont.render((str(PP1)+"/"+str(PP2)), False, (255, 255, 255))
 
-            CountText = MyFont.render((str(PP1)+"/"+str(PP2)), False, (255, 255, 255))
+        PlayerOne.update()
+        PlayerTwo.update()
+        Ball.update()
 
-            PlayerOne.update()
-            PlayerTwo.update()
-            Ball.update()
+        screen.fill((0, 0, 0))
+        PlayerOne.draw(screen)  # Left player
+        PlayerTwo.draw(screen)  # Right player
+        Ball.draw(screen)
+        pygame.draw.rect(screen, (255, 255, 255), (0, 110, WindowWidth, 10))
+        screen.blit(ScoreText, (250, 0))
+        screen.blit(CountText, (610, 0))
 
-            screen.fill((0, 0, 0))
-            PlayerOne.draw(screen)  # Left player
-            PlayerTwo.draw(screen)  # Right player
-            Ball.draw(screen)
-            pygame.draw.rect(screen, (255, 255, 255), (0, 110, WindowWidth, 10))
-            screen.blit(ScoreText, (250, 0))
-            screen.blit(CountText, (610, 0))
-
-            pygame.display.flip()
-            clock.tick(60)
+        pygame.display.flip()
+        clock.tick(60)
