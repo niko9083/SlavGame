@@ -177,18 +177,19 @@ def gameWon(board):
             break
 
     # check for diagonal winners
-    # fixing
+    # fixed
     if (grid[0][0] == grid[1][1] == grid[2][2]) and \
             (grid[0][0] is not None):
         # game won diagonally left to right
         winner = grid[0][0]
-        pygame.draw.line(board, (0, 0, 255), (75, 100), (600, 600), 5)
+        pygame.draw.line(board, (155, 0, 255), (110, 125), (537, 575), 7)
 
+    # fixing
     if (grid[0][2] == grid[1][1] == grid[2][0]) and \
             (grid[0][2] is not None):
         # game won diagonally right to left
         winner = grid[0][2]
-        pygame.draw.line(board, (0, 0, 0), (250, 50), (50, 250), 5)
+        pygame.draw.line(board, (0, 0, 0), (109, 575), (539, 125), 7)
 
 def run():
     # --------------------------------------------------------------------
