@@ -95,7 +95,10 @@ def run():
 
         # Ball.xspeed increases with every 10 total points:
         if SpeedCounter >= 10:
-            Ball.xspeed += 2
+            if Ball.xspeed > 0:
+                Ball.xspeed += 2
+            if Ball.xspeed < 0:
+                Ball.xspeed -= 2
             SpeedCounter -= SpeedCounter
 
         CountText = MyFont.render((str(PP1)+"/"+str(PP2)), False, (255, 255, 255))
