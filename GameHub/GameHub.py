@@ -15,7 +15,7 @@ Green = 255
 Blue = 0
 
 TitleFont = pygame.font.SysFont('Bahnschrift', 100)
-RegularFont = pygame.font.SysFont('Century Gothic', 20)
+RegularFont = pygame.font.SysFont('Century Gothic', 30)
 GameFont = pygame.font.SysFont('Candara Bold', 50)
 
 HelpText = RegularFont.render("Pick a game:", False, (255, 255, 255))
@@ -73,7 +73,7 @@ while not done:
     screen.blit(PongText, (50, 175))
     screen.blit(SimonSaysText, (50, 225))
     screen.blit(TicTacToeText, (50, 275))
-    screen.blit(ByText, (0, HubHeight - 25))
+    screen.blit(ByText, (10, HubHeight - 25))
 
     pygame.display.flip()
     clock.tick(60)
