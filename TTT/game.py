@@ -1,4 +1,4 @@
-# listen over hvad jeg skal have med
+# things needed to me added
 
 # add board
 # add display board
