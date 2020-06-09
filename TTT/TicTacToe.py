@@ -191,7 +191,7 @@ def gameWon(board):
         winner = grid[0][2]
         pygame.draw.line(board, (0, 0, 0), (109, 575), (539, 125), 7)
 
-        
+
 def run():
     # --------------------------------------------------------------------
     # initialize pygame and our window
